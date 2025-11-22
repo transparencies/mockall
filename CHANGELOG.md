@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Allow mocking structs and traits with const generics.
+  ([#649](https://github.com/asomers/mockall/pull/649))
+
 - Compatibility with the `#[trait_variant::make]` macro.
   ([#640](https://github.com/asomers/mockall/pull/640))
 
