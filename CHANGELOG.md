@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [ Unreleased ] - ReleaseDate
+## [ 0.14.0 ] - 2025-11-22
 
 ### Added
 
