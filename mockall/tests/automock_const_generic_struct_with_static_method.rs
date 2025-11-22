@@ -8,9 +8,11 @@ use std::sync::{Mutex, PoisonError};
 
 static A_MTX: Mutex<()> = Mutex::new(());
 
+pub struct A<const L: usize, const C: bool> {}
+
 #[automock]
-trait A<const L: usize, const C: bool> {
-    fn bar() -> [u8; L];
+impl<const L: usize, const C: bool> A<L, C> {
+    pub fn bar() -> [u8; L] {unimplemented!()}
 }
 
 #[test]
