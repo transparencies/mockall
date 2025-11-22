@@ -21,14 +21,11 @@ fn phantom_default_inits(generics: &Generics) -> Vec<TokenStream> {
     generics.params
     .iter()
     .enumerate()
-    .map(|(count, param)| {
+    .filter_map(|(count, param)| {
         let phident = format_ident!("_t{count}");
         match param {
-            GenericParam::Const(cp) => {
-                let val = &cp.ident;
-                quote!(#phident: drop(#val))
-            }
-            _ => quote!(#phident: ::std::marker::PhantomData),
+            GenericParam::Const(_cp) => None,
+            _ => Some(quote!(#phident: ::std::marker::PhantomData)),
         }
     }).collect()
 }
@@ -38,7 +35,7 @@ fn phantom_fields(generics: &Generics) -> Vec<TokenStream> {
     generics.params
     .iter()
     .enumerate()
-    .map(|(count, param)| {
+    .filter_map(|(count, param)| {
         let phident = format_ident!("_t{count}");
         match param {
             syn::GenericParam::Lifetime(l) => {
@@ -47,15 +44,17 @@ fn phantom_fields(generics: &Generics) -> Vec<TokenStream> {
                         "#automock does not yet support lifetime bounds on structs");
                 }
                 let lifetime = &l.lifetime;
-                quote!(#phident: ::std::marker::PhantomData<&#lifetime ()>)
+                Some(
+                    quote!(#phident: ::std::marker::PhantomData<&#lifetime ()>)
+                )
             },
             syn::GenericParam::Type(tp) => {
                 let ty = &tp.ident;
-                quote!(#phident: ::std::marker::PhantomData<#ty>)
+                Some(
+                    quote!(#phident: ::std::marker::PhantomData<#ty>)
+                )
             },
-            syn::GenericParam::Const(_) => {
-                quote!(#phident: ())
-            }
+            syn::GenericParam::Const(_) => None
         }
     }).collect()
 }
