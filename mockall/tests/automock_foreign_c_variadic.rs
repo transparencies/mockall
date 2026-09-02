@@ -1,5 +1,4 @@
 // vim: tw=80
-#![cfg_attr(feature = "nightly", feature(c_variadic))]
 #![deny(warnings)]
 
 #[cfg(feature = "nightly")]
