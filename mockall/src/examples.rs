@@ -4,7 +4,7 @@ use mockall::{mock, automock};
 
 /// Mock of a basic trait with several kinds of method.
 ///
-/// It is mocked by the [`MockFoo`](struct.MockFoo.html) struct.
+/// It is mocked by the [`MockFoo`] struct.
 #[automock]
 pub trait Foo {
     /// A method with a `'static` return type
